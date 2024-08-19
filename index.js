@@ -13,7 +13,7 @@ const ballBorderColor = "black";
 const ballRadius = 12.5;
 const paddleSpeed = 50;
 let intervalID;
-let ballSpeed = 1;
+let ballSpeed;
 let ballX = gameWidth/2;
 let ballY = gameHeight/2;
 let ballXDirection;
@@ -69,18 +69,18 @@ function drawPaddles(){
 
 };
 function createBall(){
-    ballSpeed = 1;
-    if(Math.round(Math.random()) == 1){
+    ballSpeed = 1.5;
+    if(Math.round(Math.random()) > 0.5){
         ballXDirection = 1;
     }
     else{
         ballXDirection = -1;
     }
     if(Math.round(Math.random()) == 1){
-        ballYDirection = 1;
+        ballYDirection = Math.random() * 0.25 + 0.75;
     }
     else{
-        ballYDirection = -1;
+        ballYDirection = -1 * Math.random() * 0.25 + 0.75;
     }
     ballX = gameWidth/2;
     ballY = gameHeight/2;
@@ -122,14 +122,14 @@ function checkCollision(){
         if(ballY > paddle1.y && ballY < paddle1.y + paddle1.height){
             ballX = (paddle1.x + paddle1.width + ballRadius);
             ballXDirection *= -1;
-            ballSpeed *= 1.1;
+            ballSpeed += 0.3;
         }
     }
     if(ballX >= paddle2.x - ballRadius){
         if(ballY > paddle2.y && ballY < paddle2.y + paddle2.height){
             ballX = paddle2.x - ballRadius;
             ballXDirection *= -1;
-            ballSpeed *= 1.4;
+            ballSpeed += 0.3;
         }
     }
 };
